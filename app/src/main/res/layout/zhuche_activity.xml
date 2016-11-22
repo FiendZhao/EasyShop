@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.zsq.easyshop.activity.ZhucheActivity">
+    <!--标题栏-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="@string/title_register" />
+
+    <!--用户名-->
+    <EditText
+        android:id="@+id/zc_et_name"
+        style="@style/AppTheme.EditText.Big"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/dp_23"
+        android:layout_marginRight="@dimen/dp_23"
+        android:layout_marginTop="@dimen/dp_31"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/selector_ic_name"
+        android:hint="@string/username"
+        android:maxLength="20" />
+
+    <!--密码-->
+    <EditText
+        android:id="@+id/zc_et_mima"
+        style="@style/AppTheme.EditText.Big"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:background="@color/white"
+        android:layout_alignEnd="@+id/zc_et_name"
+        android:layout_alignLeft="@+id/zc_et_name"
+        android:layout_alignRight="@+id/zc_et_name"
+        android:layout_alignStart="@+id/zc_et_name"
+        android:layout_below="@+id/zc_et_name"
+        android:layout_marginTop="@dimen/dp_6"
+        android:drawableLeft="@drawable/selector_ic_mima"
+        android:hint="@string/password"
+        android:inputType="textPassword" />
+
+    <!--确认密码-->
+    <EditText
+        android:id="@+id/zc_et_qrmima"
+        style="@style/AppTheme.EditText.Big"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:layout_alignEnd="@+id/zc_et_mima"
+        android:layout_alignLeft="@+id/zc_et_mima"
+        android:layout_alignRight="@+id/zc_et_mima"
+        android:layout_alignStart="@+id/zc_et_mima"
+        android:layout_below="@+id/zc_et_mima"
+        android:layout_marginTop="@dimen/dp_6"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/selector_ic_mima"
+        android:hint="@string/pwd_again"
+        android:inputType="textPassword" />
+
+    <!--注册按钮-->
+    <Button
+        android:id="@+id/zc_btn"
+        style="@style/AppTheme.Button.EasyShop"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_58"
+        android:layout_alignEnd="@+id/zc_et_qrmima"
+        android:layout_alignLeft="@+id/zc_et_qrmima"
+        android:layout_alignRight="@+id/zc_et_qrmima"
+        android:layout_alignStart="@+id/zc_et_qrmima"
+        android:layout_below="@+id/zc_et_qrmima"
+        android:layout_marginTop="@dimen/dp_40"
+        android:enabled="false"
+        android:text="@string/register"
+        />
+
+</RelativeLayout>

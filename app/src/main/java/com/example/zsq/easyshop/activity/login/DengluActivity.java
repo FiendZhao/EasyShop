@@ -1,8 +1,8 @@
-package com.example.zsq.easyshop.activity;
+package com.example.zsq.easyshop.activity.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -12,30 +12,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.example.zsq.easyshop.R;
-import com.example.zsq.easyshop.commons.ActivityUtils;
-import com.example.zsq.easyshop.components.ProgressDialogFragment;
-import com.example.zsq.easyshop.model.CachePreferences;
-import com.example.zsq.easyshop.model.User;
-import com.example.zsq.easyshop.model.UserResult;
-import com.example.zsq.easyshop.notwork.EasyShopClient;
-import com.example.zsq.easyshop.notwork.UICallBack;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
+import com.example.zsq.easyshop.R;
+import com.example.zsq.easyshop.activity.MainActivity;
+import com.example.zsq.easyshop.activity.register.ZhucheActivity;
+import com.example.zsq.easyshop.commons.ActivityUtils;
+import com.example.zsq.easyshop.components.ProgressDialogFragment;
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 /**
  * Created by ZSQ on 2016/11/16.
  * 登录界面
  */
 
-public class DengluActivity extends AppCompatActivity{
+public class DengluActivity extends MvpActivity<LoginView,LoginPresenter> implements LoginView{
     //声明标题栏
     @BindView(R.id.toolbar)Toolbar toolbar;
     //声明快速注册按钮
@@ -60,6 +52,10 @@ public class DengluActivity extends AppCompatActivity{
         ButterKnife.bind(this);
         activityUtils = new ActivityUtils(this);
         init();
+    }
+
+    @NonNull @Override public LoginPresenter createPresenter() {
+        return new LoginPresenter();
     }
 
     private void init(){
@@ -113,32 +109,33 @@ public class DengluActivity extends AppCompatActivity{
                 break;
             //关闭页面返回
             case R.id.dl_btn:
-                Call call = EasyShopClient.getInstance().login(username,password);
-                call.enqueue(new UICallBack() {
-                    @Override
-                    public void onFailureUI(Call call, IOException e) {
-                        activityUtils.showToast(e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponseUI(Call call, String body) {
-                        UserResult userResult = new Gson().fromJson(body,UserResult.class);
-                        if (userResult.getCode() == 1){
-                            activityUtils.showToast("登录成功");
-                            User user = userResult.getData();
-                            CachePreferences.setUser(user);
-
-                            // TODO: 2016/11/21 0021 页面跳转
-                        }else if (userResult.getCode() == 2){
-                            activityUtils.showToast("用户名或密码输入错误");
-                        }else{
-                            activityUtils.showToast("未知错误！");
-                        }
-                    }
-                });
-
+                presenter.login(username,password);
                 break;
         }
 
+    }
+
+    @Override public void showPrb() {
+        activityUtils.hideSoftKeyboard();
+        if (dialogFragment==null) dialogFragment = new ProgressDialogFragment();
+        if (dialogFragment.isVisible()) return;
+        dialogFragment.show(getSupportFragmentManager(),"progress_dialog_fragment");
+    }
+
+    @Override public void hidePrb() {
+        dialogFragment.dismiss();
+    }
+
+    @Override public void loginFailed() {
+        dl_ed_name.setText("");
+    }
+
+    @Override public void loginSuccess() {
+        activityUtils.startActivity(MainActivity.class);
+        finish();
+    }
+
+    @Override public void showMsg(String msg) {
+        activityUtils.showToast(msg);
     }
 }

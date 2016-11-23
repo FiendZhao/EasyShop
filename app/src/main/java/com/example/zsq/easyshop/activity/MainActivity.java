@@ -7,18 +7,17 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
-import com.example.zsq.easyshop.R;
-import com.example.zsq.easyshop.UnLoginFragment;
-import com.example.zsq.easyshop.commons.ActivityUtils;
-import com.example.zsq.easyshop.me.MeFragment;
-import com.example.zsq.easyshop.shop.ShopFragment;
-
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import com.example.zsq.easyshop.R;
+import com.example.zsq.easyshop.UnLoginFragment;
+import com.example.zsq.easyshop.commons.ActivityUtils;
+import com.example.zsq.easyshop.me.MeFragment;
+import com.example.zsq.easyshop.model.CachePreferences;
+import com.example.zsq.easyshop.shop.ShopFragment;
 
 /**
  * 主界面
@@ -62,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         //设置一下ActionBar标题为空，否则默认显示应用名
         getSupportActionBar().setTitle("");
 
+        //清理本地配置
+        //CachePreferences.clearAllData();
+
         init();
     }
 
@@ -70,9 +72,14 @@ public class MainActivity extends AppCompatActivity {
         //刚进入默认选择市场
         textViews[0].setSelected(true);
         tv_shop.setTextColor(getResources().getColor(R.color.colorAccent));
-        //TODO 用户是否登录，从而选择不同的适配器
-        viewPager.setAdapter(unLoginAdapter);
-        viewPager.setCurrentItem(0);
+        //判断用户是否登录，从而选择不同的适配器
+        if (CachePreferences.getUser().getName()==null){
+            viewPager.setAdapter(unLoginAdapter);
+            viewPager.setCurrentItem(0);
+        }else {
+            viewPager.setAdapter(LoginAdapter);
+            viewPager.setCurrentItem(0);
+        }
 
         //viewpager添加滑动事件
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -99,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //未登录的适配器
     private FragmentStatePagerAdapter unLoginAdapter = new
             FragmentStatePagerAdapter(getSupportFragmentManager()) {
                 @Override
@@ -125,6 +133,36 @@ public class MainActivity extends AppCompatActivity {
                     return 4;
                 }
             };
+
+    //登录后的适配器
+    private FragmentStatePagerAdapter LoginAdapter = new
+        FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                switch (position) {
+                    //市场
+                    case 0:
+                        return new ShopFragment();
+                    //消息
+                    case 1:
+                        return new UnLoginFragment();
+                    //通讯录
+                    case 2:
+                        return new UnLoginFragment();
+                    //我的
+                    case 3:
+                        return new MeFragment();
+                }
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 4;
+            }
+        };
+
+
     //textView点击事件
     @OnClick({R.id.tv_shop,R.id.tv_message,R.id.tv_mail_list,R.id.tv_me})
     public void OnClick(TextView view){

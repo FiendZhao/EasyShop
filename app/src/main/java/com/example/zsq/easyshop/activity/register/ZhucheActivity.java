@@ -1,7 +1,7 @@
-package com.example.zsq.easyshop.activity;
+package com.example.zsq.easyshop.activity.register;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -9,32 +9,22 @@ import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.example.zsq.easyshop.R;
 import com.example.zsq.easyshop.commons.ActivityUtils;
 import com.example.zsq.easyshop.commons.RegexUtils;
 import com.example.zsq.easyshop.components.AlertDialogFragment;
 import com.example.zsq.easyshop.components.ProgressDialogFragment;
-import com.example.zsq.easyshop.model.CachePreferences;
-import com.example.zsq.easyshop.model.User;
-import com.example.zsq.easyshop.model.UserResult;
-import com.example.zsq.easyshop.notwork.EasyShopClient;
-import com.example.zsq.easyshop.notwork.UICallBack;
-import com.google.gson.Gson;
-
-import java.io.IOException;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import okhttp3.Call;
+import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 /**
  * Created by ZSQ on 2016/11/16.
  * 注册页面
  */
 
-public class ZhucheActivity extends AppCompatActivity{
+public class ZhucheActivity extends MvpActivity<RegisterView,RegisterPresenter> implements RegisterView{
 
     private ActivityUtils activityUtils;
     private ProgressDialogFragment dialogFragment;
@@ -62,6 +52,10 @@ public class ZhucheActivity extends AppCompatActivity{
         activityUtils = new ActivityUtils(this);
 
         init();
+    }
+
+    @NonNull @Override public RegisterPresenter createPresenter() {
+        return new RegisterPresenter();
     }
 
     private void init(){
@@ -119,44 +113,38 @@ public class ZhucheActivity extends AppCompatActivity{
             showUserPasswordError(msg);
             return;
         }
-        Call call = EasyShopClient.getInstance().register(username,password);
-        call.enqueue(new UICallBack() {
-            @Override
-            public void onFailureUI(Call call, IOException e) {
-                activityUtils.showToast(e.getMessage());
-            }
-
-            @Override
-            public void onResponseUI(Call call, String body) {
-                //拿到返回的结果
-                UserResult userResult = new Gson().fromJson(body,UserResult.class);
-                //根据结果码处理不同情况
-                if (userResult.getCode()==1){
-
-                    activityUtils.showToast("注册成功！");
-                    //拿到用户的实体类
-                    User user = userResult.getData();
-                    //将用户信息保存到本地配置里
-                    CachePreferences.setUser(user);
-
-                    //TODO:页面跳转实现，使用eventbus
-                    //TODO:需要登录环信，待实现
-
-                }else if (userResult.getCode()==2){
-                    activityUtils.showToast(userResult.getMessage());
-                }else {
-                    activityUtils.showToast("未知错误！");
-                }
-            }
-        });
+        presenter.register(username,password);
 
     }
 
-
     //显示错误提示
-    public void showUserPasswordError(String msg) {
+    @Override public void showUserPasswordError(String msg) {
         AlertDialogFragment fragment = AlertDialogFragment.newInstance(msg);
         fragment.show(getSupportFragmentManager(), getString(R.string.username_pwd_rule));
     }
 
+    @Override public void showPrb() {
+        activityUtils.hideSoftKeyboard();
+        if (dialogFragment==null) dialogFragment = new ProgressDialogFragment();
+        if (dialogFragment.isVisible()) return;
+        dialogFragment.show(getSupportFragmentManager(),"progress_dialog_fragment");
+    }
+
+    @Override public void hidePrb() {
+        dialogFragment.dismiss();
+    }
+
+    @Override public void registerFailed() {
+        zc_et_name.setText("");
+    }
+
+    @Override public void registerSuccess() {
+        //成功跳转到主页
+        //TODO: 2016/11/23 0023 成功跳转到主页
+        finish();
+    }
+
+    @Override public void showMsg(String msg) {
+        activityUtils.showToast(msg);
+    }
 }

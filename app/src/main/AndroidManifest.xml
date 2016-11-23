@@ -21,8 +21,9 @@
         </activity>
         <activity android:name=".activity.MainActivity">
         </activity>
-        <activity android:name=".activity.DengluActivity"/>
-        <activity android:name=".activity.ZhucheActivity"/>
+        <activity android:name=".activity.login.DengluActivity"/>
+        <activity android:name=".activity.register.ZhucheActivity"/>
+        <activity android:name=".me.personInfo.PersonActivity"/>
     </application>
 
 </manifest>

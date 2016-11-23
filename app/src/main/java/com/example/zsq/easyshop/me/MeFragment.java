@@ -8,17 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageView;
+import android.widget.TextView;
+import butterknife.BindView;
 import com.example.zsq.easyshop.R;
-import com.example.zsq.easyshop.activity.DengluActivity;
+import com.example.zsq.easyshop.activity.login.DengluActivity;
 import com.example.zsq.easyshop.commons.ActivityUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.zsq.easyshop.me.personInfo.PersonActivity;
+import com.example.zsq.easyshop.model.CachePreferences;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MeFragment extends Fragment {
+
+    @BindView(R.id.me_civ_touxiang) ImageView me_civ_touxiang;
+    @BindView(R.id.me_tv_denglu) TextView me_tv_denglu;
     private View view;
     private ActivityUtils activityUtils;
     public MeFragment() {
@@ -43,12 +51,33 @@ public class MeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // TODO: 2016/11/16 判断用户是否登录，更改用户头像并且显示用户名
+        if (CachePreferences.getUser().getName()==null)return;
+        if (CachePreferences.getUser().getNick_name()==null){
+            me_tv_denglu.setText("请输入昵称");
+        }else {
+            me_tv_denglu.setText(CachePreferences.getUser().getNick_name());
+        }
+        //TODO : 更改用户头像，待实现
     }
 
-    @OnClick({R.id.me_civ_touxiang, R.id.me_tv_denglu})
-    public void onClick() {
-        // TODO: 2016/11/16 判断用户是否登录，来确定跳转位置
-        activityUtils.startActivity(DengluActivity.class);
+    @OnClick({R.id.me_civ_touxiang,R.id.me_tv_denglu,R.id.tv_person_info,R.id.tv_person_goods,R.id.tv_goods_upload})
+    public void onClick(View view) {
+        if (CachePreferences.getUser().getName()==null){
+            activityUtils.startActivity(DengluActivity.class);
+            return;
+        }
+        switch (view.getId()){
+            case R.id.me_civ_touxiang:
+            case R.id.me_tv_denglu:
+            case R.id.tv_person_info:
+                activityUtils.startActivity(PersonActivity.class);
+                break;
+            case R.id.tv_person_goods:
+                activityUtils.showToast("我的商品 待实现");
+                break;
+            case R.id.tv_goods_upload:
+                activityUtils.showToast("商品上传 待实现");
+                break;
+        }
     }
 }

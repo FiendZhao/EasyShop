@@ -17,8 +17,11 @@ import com.example.zsq.easyshop.commons.ActivityUtils;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.example.zsq.easyshop.components.AvatarLoadOptions;
 import com.example.zsq.easyshop.me.personInfo.PersonActivity;
 import com.example.zsq.easyshop.model.CachePreferences;
+import com.example.zsq.easyshop.notwork.EasyShopApi;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,9 +32,6 @@ public class MeFragment extends Fragment {
     @BindView(R.id.me_tv_denglu) TextView me_tv_denglu;
     private View view;
     private ActivityUtils activityUtils;
-    public MeFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +57,8 @@ public class MeFragment extends Fragment {
         }else {
             me_tv_denglu.setText(CachePreferences.getUser().getNick_name());
         }
-        //TODO : 更改用户头像，待实现
+        ImageLoader.getInstance().displayImage(EasyShopApi.IMAGE_URL + CachePreferences.getUser().getHead_Image()
+            ,me_civ_touxiang, AvatarLoadOptions.build());
     }
 
     @OnClick({R.id.me_civ_touxiang,R.id.me_tv_denglu,R.id.tv_person_info,R.id.tv_person_goods,R.id.tv_goods_upload})

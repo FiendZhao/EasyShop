@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.example.zsq.easyshop.R;
+import com.example.zsq.easyshop.activity.MainActivity;
 import com.example.zsq.easyshop.commons.ActivityUtils;
 import com.example.zsq.easyshop.commons.RegexUtils;
 import com.example.zsq.easyshop.components.AlertDialogFragment;
@@ -140,8 +141,9 @@ public class ZhucheActivity extends MvpActivity<RegisterView,RegisterPresenter> 
 
     @Override public void registerSuccess() {
         //成功跳转到主页
-        //TODO: 2016/11/23 0023 成功跳转到主页
+        activityUtils.startActivity(MainActivity.class);
         finish();
+
     }
 
     @Override public void showMsg(String msg) {

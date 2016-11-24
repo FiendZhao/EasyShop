@@ -20,6 +20,7 @@
             android:layout_margin="5dp"
             android:drawableTop="@drawable/selector_ic_shopping"
             android:text="市场"
+            android:textColor="#FF8F8F8F"
             android:textStyle="bold"
             android:gravity="center"/>
         <TextView
@@ -31,6 +32,7 @@
             android:drawableTop="@drawable/selector_ic_message"
             android:gravity="center"
             android:text="消息"
+            android:textColor="#FF8F8F8F"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/tv_mail_list"
@@ -41,6 +43,7 @@
             android:drawableTop="@drawable/selector_ic_mail_list"
             android:gravity="center"
             android:text="通讯录"
+            android:textColor="#FF8F8F8F"
             android:textStyle="bold" />
         <TextView
             android:id="@+id/tv_me"
@@ -51,6 +54,7 @@
             android:drawableTop="@drawable/selector_ic_me"
             android:gravity="center"
             android:text="我的"
+            android:textColor="#FF8F8F8F"
             android:textStyle="bold"/>
     </LinearLayout>
 </RelativeLayout>

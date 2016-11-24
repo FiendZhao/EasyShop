@@ -5,7 +5,7 @@ android {
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "com.example.zsq.easyshop"
-        minSdkVersion 23
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -28,7 +28,6 @@ dependencies {
     //加入黄油刀
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-
     compile 'com.android.support:support-v4:25.0.0'
     //自定义圆形图片组件
     compile 'com.pkmmte.view:circularimageview:1.1'
@@ -40,4 +39,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     //mosby MVP
     compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+    //图片裁剪的库
+    compile 'org.hybridsquad.android.photocropper:library:2.1.0'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

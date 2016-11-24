@@ -1,6 +1,5 @@
 package com.example.zsq.easyshop.activity.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
@@ -105,7 +104,7 @@ public class DengluActivity extends MvpActivity<LoginView,LoginPresenter> implem
         switch (view.getId()){
             //跳转到注册页面
             case R.id.dl_tv_kszc:
-                startActivity(new Intent(this,ZhucheActivity.class));
+                activityUtils.startActivity(ZhucheActivity.class);
                 break;
             //关闭页面返回
             case R.id.dl_btn:
@@ -127,7 +126,6 @@ public class DengluActivity extends MvpActivity<LoginView,LoginPresenter> implem
     }
 
     @Override public void loginFailed() {
-        dl_ed_name.setText("");
     }
 
     @Override public void loginSuccess() {

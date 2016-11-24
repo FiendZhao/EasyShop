@@ -41,13 +41,10 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginView> {
                     getView().showMsg("登录成功");
                     User user = userResult.getData();
                     CachePreferences.setUser(user);
-
                     getView().loginSuccess();
-
-                    // TODO: 2016/11/21 0021 环信未实现
                 } else if (userResult.getCode() == 2) {
                     getView().hidePrb();
-                    getView().showMsg(userResult.getMessage());
+                    getView().showMsg("用户名或密码错误");
                     getView().loginFailed();
                 } else {
                     getView().hidePrb();

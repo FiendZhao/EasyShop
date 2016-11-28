@@ -28,7 +28,7 @@ import com.hannesdorfmann.mosby.mvp.MvpActivity;
 
 public class DengluActivity extends MvpActivity<LoginView,LoginPresenter> implements LoginView{
     //声明标题栏
-    @BindView(R.id.toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_denglu)Toolbar toolbar;
     //声明快速注册按钮
     @BindView(R.id.dl_tv_kszc)TextView dl_tv_kszc;
     //声明用户名
@@ -50,6 +50,10 @@ public class DengluActivity extends MvpActivity<LoginView,LoginPresenter> implem
         //绑定黄油刀
         ButterKnife.bind(this);
         activityUtils = new ActivityUtils(this);
+        //添加标题栏
+        setSupportActionBar(toolbar);
+        //设置一下ActionBar标题为空，否则默认显示应用名
+        getSupportActionBar().setTitle("登录");
         init();
     }
 

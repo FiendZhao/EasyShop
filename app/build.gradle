@@ -42,4 +42,13 @@ dependencies {
     //图片裁剪的库
     compile 'org.hybridsquad.android.photocropper:library:2.1.0'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+    //上拉刷新，下载加载的库
+    compile 'in.srain.cube:ptr-load-more:1.0.2'
+    //recyclerview
+    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    //上拉缩放图片到标题栏
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:cardview-v7:25.0.1'
+    //使用开源库CircleIndicator来实现ViewPager的圆点指示器
+    compile 'me.relex:circleindicator:1.2.1@aar'
 }

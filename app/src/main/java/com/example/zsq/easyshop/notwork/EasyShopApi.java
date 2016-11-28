@@ -21,4 +21,16 @@ public class EasyShopApi {
 
     //更新接口（更新昵称，更新头像）
     static final String UPDATA = "UserWeb?method=update";
+
+    //获取商品
+    static final String GETGOODS = "GoodsServlet?method=getAll";
+
+    //获取商品详情
+    static final String DETAIL = "GoodsServlet?method=view";
+
+    //删除商品
+    static final String DELETE = "GoodsServlet?method=delete";
+
+    //上传商品
+    static final String UPLOADGOODS = "GoodsServlet?method=add";
 }

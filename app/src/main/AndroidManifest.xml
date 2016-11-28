@@ -31,6 +31,9 @@
         <activity android:name=".activity.register.ZhucheActivity"/>
         <activity android:name=".me.personInfo.PersonActivity"/>
         <activity android:name=".me.personInfo.NickNameActivity"/>
+        <activity android:name=".shop.details.ShangPinXiangQingActivity"/>
+        <activity android:name=".me.persiongoods.PersonGoodsActivity"/>
+        <activity android:name=".shop.details.GoodsDetailInfoActivity"/>
     </application>
 
 </manifest>

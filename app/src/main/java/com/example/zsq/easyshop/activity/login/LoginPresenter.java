@@ -31,7 +31,7 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginView> {
             @Override
             public void onFailureUI(Call call, IOException e) {
                 getView().hidePrb();
-                getView().showMsg(e.getMessage());
+                getView().showMsg("网络异常！请检查网络连接");
             }
 
             @Override

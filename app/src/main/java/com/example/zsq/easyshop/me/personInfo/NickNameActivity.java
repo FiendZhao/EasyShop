@@ -1,6 +1,7 @@
 package com.example.zsq.easyshop.me.personInfo;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -12,6 +13,7 @@ import butterknife.Unbinder;
 import com.example.zsq.easyshop.R;
 import com.example.zsq.easyshop.commons.ActivityUtils;
 import com.example.zsq.easyshop.commons.RegexUtils;
+import com.example.zsq.easyshop.components.ProgressDialogFragment;
 import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.model.User;
 import com.example.zsq.easyshop.model.UserResult;
@@ -32,6 +34,8 @@ public class NickNameActivity extends AppCompatActivity {
     private ActivityUtils activityUtils;
     private String str_nickname;
     private Unbinder unbinder;
+    private ProgressDialogFragment dialogFragment;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,10 @@ public class NickNameActivity extends AppCompatActivity {
 
     //昵称修改
     private void init() {
+        //添加进度条
+        if (dialogFragment==null) dialogFragment = new ProgressDialogFragment();
+        if (dialogFragment.isVisible()) return;
+        dialogFragment.show(getSupportFragmentManager(),"progress_dialog_fragment");
         //从配置中拿到用户类
         User user = CachePreferences.getUser();
         //把要修改的昵称设置进来
@@ -74,7 +82,7 @@ public class NickNameActivity extends AppCompatActivity {
         call.enqueue(new UICallBack() {
             @Override
             public void onFailureUI(Call call, IOException e) {
-                activityUtils.showToast(e.getMessage());
+                activityUtils.showToast("网络异常！请检查网络连接");
             }
 
             @Override
@@ -88,6 +96,7 @@ public class NickNameActivity extends AppCompatActivity {
                 activityUtils.showToast("修改成功");
                 //返回
                 onBackPressed();
+                dialogFragment.dismiss();
             }
         });
     }

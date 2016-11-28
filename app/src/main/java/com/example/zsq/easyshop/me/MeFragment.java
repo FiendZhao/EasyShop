@@ -7,17 +7,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import com.example.zsq.easyshop.R;
 import com.example.zsq.easyshop.activity.login.DengluActivity;
 import com.example.zsq.easyshop.commons.ActivityUtils;
-
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import com.example.zsq.easyshop.components.AvatarLoadOptions;
+import com.example.zsq.easyshop.me.persiongoods.PersonGoodsActivity;
 import com.example.zsq.easyshop.me.personInfo.PersonActivity;
 import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.notwork.EasyShopApi;
@@ -71,13 +70,16 @@ public class MeFragment extends Fragment {
             case R.id.me_civ_touxiang:
             case R.id.me_tv_denglu:
             case R.id.tv_person_info:
+                //跳转到个人信息界面
                 activityUtils.startActivity(PersonActivity.class);
                 break;
             case R.id.tv_person_goods:
-                activityUtils.showToast("我的商品 待实现");
+                //跳转到我的商品界面
+                activityUtils.startActivity(PersonGoodsActivity.class);
                 break;
             case R.id.tv_goods_upload:
-                activityUtils.showToast("商品上传 待实现");
+                //TODO：跳转到上传商品界面
+                activityUtils.startActivity(PersonGoodsActivity.class);
                 break;
         }
     }

@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -97,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                 //更改title，设置选择效果
                 tv_title.setText(textViews[position].getText());
                 textViews[position].setSelected(true);
+                for (int i = 0; i <textViews.length ; i++) {
+                    textViews[i].setTextColor(getResources().getColor(R.color.text_goods_name));
+                }
+                textViews[position].setTextColor(getResources().getColor(R.color.colorAccent));
             }
 
             @Override
@@ -173,33 +176,12 @@ public class MainActivity extends AppCompatActivity {
         //设置选择效果
         view.setSelected(true);
         //改变字体颜色
-        switch ((Integer) view.getTag()){
-            case 0:
-                tv_shop.setTextColor(getResources().getColor(R.color.colorAccent));
-                tv_message.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_mail_list.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_me.setTextColor(getResources().getColor(R.color.text_goods_name));
-                break;
-            case 1:
-                tv_shop.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_message.setTextColor(getResources().getColor(R.color.colorAccent));
-                tv_mail_list.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_me.setTextColor(getResources().getColor(R.color.text_goods_name));
-                break;
-            case 2:
-                tv_shop.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_message.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_mail_list.setTextColor(getResources().getColor(R.color.colorAccent));
-                tv_me.setTextColor(getResources().getColor(R.color.text_goods_name));
-                break;
-            case 3:
-                tv_shop.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_message.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_mail_list.setTextColor(getResources().getColor(R.color.text_goods_name));
-                tv_me.setTextColor(getResources().getColor(R.color.colorAccent));
-                break;
+        textViews[(int) view.getTag()].setTextColor(getResources().getColor(R.color.colorAccent));
+        for (int i = 0; i <textViews.length ; i++) {
+            if (i!=(int) view.getTag()){
+                textViews[i].setTextColor(getResources().getColor(R.color.text_goods_name));
+            }
         }
-
         //参数false代表瞬间切换，而不是平滑过渡
         viewPager.setCurrentItem((Integer) view.getTag(),false);
         //设置一下toolbar的title

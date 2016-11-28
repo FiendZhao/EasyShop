@@ -2,9 +2,11 @@ package com.example.zsq.easyshop.me.personInfo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,6 +50,9 @@ public class PersonActivity extends MvpActivity<PersonView,PersonPersenter> impl
   private List<ItemShow> list = new ArrayList<>();
   private PersonAdapter adapter;
   private PicWindow picWindow;
+  //权限
+  private String[] quanxianSZ = {"android.permission.WRITE_EXTERNAL_STORAGE"};
+  private String quanxian = "android.permission.WRITE_EXTERNAL_STORAGE";
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -129,6 +134,10 @@ public class PersonActivity extends MvpActivity<PersonView,PersonPersenter> impl
   public void onClick(View view){
     switch (view.getId()){
       case R.id.iv_user_head:
+        //添加动态权限
+        if (ActivityCompat.checkSelfPermission(this, quanxian) != PackageManager.PERMISSION_GRANTED){
+        ActivityCompat.requestPermissions(this,quanxianSZ,1);
+      }
         if (picWindow == null){
           //图片选择弹窗的自定义监听
           picWindow = new PicWindow(this,listener);
@@ -140,7 +149,6 @@ public class PersonActivity extends MvpActivity<PersonView,PersonPersenter> impl
         picWindow.show();
         break;
       case R.id.btn_login_out:
-        // TODO: 2016/11/23 0023 环信的退出登录
         //清空本地配置
         CachePreferences.clearAllData();
         Intent intent = new Intent(this, MainActivity.class);
@@ -174,6 +182,7 @@ public class PersonActivity extends MvpActivity<PersonView,PersonPersenter> impl
       File file =  new File(uri.getPath());
       //业务类上传头像
       presenter.updataAvatar(file);
+
     }
 
     @Override public void onCropCancel() {

@@ -35,7 +35,7 @@ public class ZhucheActivity extends MvpActivity<RegisterView,RegisterPresenter> 
     private String pwd_again;
 
     //声明标题栏
-    @BindView(R.id.toolbar)Toolbar toolbar;
+    @BindView(R.id.toolbar_zhuche)Toolbar toolbar;
     //声明用户名
     @BindView(R.id.zc_et_name)EditText zc_et_name;
     //声明密码
@@ -51,7 +51,10 @@ public class ZhucheActivity extends MvpActivity<RegisterView,RegisterPresenter> 
         //绑定黄油刀
         ButterKnife.bind(this);
         activityUtils = new ActivityUtils(this);
-
+        //添加标题栏
+        setSupportActionBar(toolbar);
+        //设置一下ActionBar标题为空，否则默认显示应用名
+        getSupportActionBar().setTitle("注册");
         init();
     }
 

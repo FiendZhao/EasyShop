@@ -29,7 +29,7 @@ public class PersonPersenter extends MvpNullObjectBasePresenter<PersonView>{
     call.enqueue(new UICallBack() {
       @Override public void onFailureUI(Call call, IOException e) {
         getView().hidePrb();
-        getView().showMsg(e.getMessage());
+        getView().showMsg("网络异常！请检查网络连接");
       }
 
       @Override public void onResponseUI(Call call, String body) {
@@ -46,8 +46,6 @@ public class PersonPersenter extends MvpNullObjectBasePresenter<PersonView>{
         CachePreferences.setUser(user);
         //调用activity里的头像更新方法，把url传过去
         getView().updataAvatar(userResult.getData().getHead_Image());
-
-        // TODO: 2016/11/24 环信更新用户头像
       }
     });
   }

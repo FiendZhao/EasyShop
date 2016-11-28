@@ -33,7 +33,7 @@ public class RegisterPresenter extends MvpNullObjectBasePresenter<RegisterView>{
         //隐藏动画
         getView().hidePrb();
         //显示异常信息
-        getView().showMsg(e.getMessage());
+        getView().showMsg("网络异常！请检查网络连接");
       }
 
       @Override

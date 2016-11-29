@@ -24,6 +24,7 @@ import butterknife.OnClick;
 import com.example.zsq.easyshop.R;
 import com.example.zsq.easyshop.activity.login.DengluActivity;
 import com.example.zsq.easyshop.commons.ActivityUtils;
+import com.example.zsq.easyshop.commons.CurrentUser;
 import com.example.zsq.easyshop.components.AppBarStateChangeListener;
 import com.example.zsq.easyshop.components.AvatarLoadOptions;
 import com.example.zsq.easyshop.components.ProgressDialogFragment;
@@ -31,6 +32,8 @@ import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.model.GoodsDetail;
 import com.example.zsq.easyshop.model.User;
 import com.example.zsq.easyshop.notwork.EasyShopApi;
+import com.feicuiedu.apphx.model.repository.DefaultLocalUsersRepo;
+import com.feicuiedu.apphx.presentation.chat.HxChatActivity;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import java.util.ArrayList;
@@ -198,8 +201,9 @@ public class ShangPinXiangQingActivity extends MvpActivity<GoodsDetailView,Goods
           activityUtils.showToast("这个商品是自己发布的哦！");
           return;
         }
-        // TODO: 2016/11/27 跳转到发送消息页面，环信实现
-        activityUtils.showToast("发消息，待实现");
+        //跳转到环信的消息页面
+        DefaultLocalUsersRepo.getInstance(this).save(CurrentUser.convert(goods_user));
+        startActivity(HxChatActivity.getStartIntent(ShangPinXiangQingActivity.this,goods_user.getHx_Id()));
         break;
       case R.id.tv_goods_delete:
         //弹一个警告，是否删除

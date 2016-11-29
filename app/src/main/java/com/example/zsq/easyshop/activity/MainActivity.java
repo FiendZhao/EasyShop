@@ -18,6 +18,8 @@ import com.example.zsq.easyshop.commons.ActivityUtils;
 import com.example.zsq.easyshop.me.MeFragment;
 import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.shop.ShopFragment;
+import com.feicuiedu.apphx.presentation.contact.list.HxContactListFragment;
+import com.feicuiedu.apphx.presentation.conversation.HxConversationListFragment;
 
 /**
  * 主界面
@@ -148,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
                         return new ShopFragment();
                     //消息
                     case 1:
-                        return new UnLoginFragment();
+                        return new HxConversationListFragment();
                     //通讯录
                     case 2:
-                        return new UnLoginFragment();
+                        return new HxContactListFragment();
                     //我的
                     case 3:
                         return new MeFragment();

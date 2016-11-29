@@ -51,4 +51,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:25.0.1'
     //使用开源库CircleIndicator来实现ViewPager的圆点指示器
     compile 'me.relex:circleindicator:1.2.1@aar'
+    //工具类
+    compile 'org.apache.commons:commons-lang3:3.4'
+    compile project(':apphx')
 }

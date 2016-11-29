@@ -26,7 +26,9 @@ import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.model.ItemShow;
 import com.example.zsq.easyshop.model.User;
 import com.example.zsq.easyshop.notwork.EasyShopApi;
+import com.feicuiedu.apphx.model.HxUserManager;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
+import com.hyphenate.easeui.controller.EaseUI;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import java.io.File;
 import java.util.ArrayList;
@@ -149,6 +151,10 @@ public class PersonActivity extends MvpActivity<PersonView,PersonPersenter> impl
         picWindow.show();
         break;
       case R.id.btn_login_out:
+        //环信的退出登录
+        HxUserManager.getInstance().asyncLogout();
+        //登出关掉通知栏中的通知
+        EaseUI.getInstance().getNotifier().reset();
         //清空本地配置
         CachePreferences.clearAllData();
         Intent intent = new Intent(this, MainActivity.class);

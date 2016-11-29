@@ -11,4 +11,5 @@
     <color name="text_goods_describe">#676767</color>
     <color name="text_hint">#999999</color>
     <color name="background">#eeeeee</color>
+    <color name="text_color_hint">#3d4245</color>
 </resources>

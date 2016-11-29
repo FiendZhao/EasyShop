@@ -16,6 +16,7 @@ import com.example.zsq.easyshop.R;
 import com.example.zsq.easyshop.activity.login.DengluActivity;
 import com.example.zsq.easyshop.commons.ActivityUtils;
 import com.example.zsq.easyshop.components.AvatarLoadOptions;
+import com.example.zsq.easyshop.me.goodsupload.GoodsUpLoadActivity;
 import com.example.zsq.easyshop.me.persiongoods.PersonGoodsActivity;
 import com.example.zsq.easyshop.me.personInfo.PersonActivity;
 import com.example.zsq.easyshop.model.CachePreferences;
@@ -78,8 +79,8 @@ public class MeFragment extends Fragment {
                 activityUtils.startActivity(PersonGoodsActivity.class);
                 break;
             case R.id.tv_goods_upload:
-                //TODO：跳转到上传商品界面
-                activityUtils.startActivity(PersonGoodsActivity.class);
+                //跳转到上传商品界面
+                activityUtils.startActivity(GoodsUpLoadActivity.class);
                 break;
         }
     }

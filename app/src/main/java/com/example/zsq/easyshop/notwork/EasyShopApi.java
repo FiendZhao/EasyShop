@@ -33,4 +33,10 @@ public class EasyShopApi {
 
     //上传商品
     static final String UPLOADGOODS = "GoodsServlet?method=add";
+
+    //获取好友列表
+    static final String GET_NAMES = "UserWeb?method=getNames";
+
+    //查找好友
+    static final String GET_USER = "UserWeb?method=getUsers";
 }

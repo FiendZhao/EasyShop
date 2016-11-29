@@ -3,8 +3,11 @@ package com.example.zsq.easyshop.me.personInfo;
 import com.example.zsq.easyshop.model.CachePreferences;
 import com.example.zsq.easyshop.model.User;
 import com.example.zsq.easyshop.model.UserResult;
+import com.example.zsq.easyshop.notwork.EasyShopApi;
 import com.example.zsq.easyshop.notwork.EasyShopClient;
 import com.example.zsq.easyshop.notwork.UICallBack;
+import com.feicuiedu.apphx.model.HxMessageManager;
+import com.feicuiedu.apphx.model.HxUserManager;
 import com.google.gson.Gson;
 import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
 import java.io.File;
@@ -46,6 +49,10 @@ public class PersonPersenter extends MvpNullObjectBasePresenter<PersonView>{
         CachePreferences.setUser(user);
         //调用activity里的头像更新方法，把url传过去
         getView().updataAvatar(userResult.getData().getHead_Image());
+
+        //环信更新用户头像
+        HxUserManager.getInstance().updateAvatar(EasyShopApi.IMAGE_URL + userResult.getData().getHead_Image());
+        HxMessageManager.getInstance().sendAvatarUpdateMessage(EasyShopApi.IMAGE_URL + userResult.getData().getHead_Image());
       }
     });
   }

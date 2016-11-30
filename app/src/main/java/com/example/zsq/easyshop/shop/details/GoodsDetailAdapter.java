@@ -27,7 +27,7 @@ public class GoodsDetailAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = list.get(position);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

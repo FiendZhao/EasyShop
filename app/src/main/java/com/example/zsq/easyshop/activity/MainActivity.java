@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
                             return new ShopFragment();
                         //消息
                         case 1:
-                            return new UnLoginFragment();
                         //通讯录
                         case 2:
                             return new UnLoginFragment();
